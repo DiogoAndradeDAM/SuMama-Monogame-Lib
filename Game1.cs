@@ -9,7 +9,6 @@ namespace SuMamaLib;
 public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
 	private GameManager gameManager;
 
     public Game1()
@@ -18,19 +17,20 @@ public class Game1 : Game
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
 
-		gameManager = new GameManager();
     }
 
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
+		//
+
+		gameManager = new GameManager(Window , Content, GraphicsDevice);
 
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
 		

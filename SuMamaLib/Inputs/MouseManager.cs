@@ -1,3 +1,5 @@
+using SuMamaLib.Base.GameManager;
+
 namespace SuMamaLib.Inputs.Mouse
 {
 	using Microsoft.Xna.Framework;
@@ -8,20 +10,40 @@ namespace SuMamaLib.Inputs.Mouse
 		private static MouseState _prevState = Mouse.GetState();
 		private static MouseState _currState = Mouse.GetState();
 
-		public static void Update()
+		public static void Update(GameWindow window)
 		{
 			_prevState = _currState;
-			_currState = Mouse.GetState();
+			_currState = Mouse.GetState(window);
+		}
+
+		public static Point GetMousePositionWindow()
+		{
+			return new Point(_currState.X, _currState.Y);
 		}
 
 		public static Point GetMousePosition()
 		{
-			return new Point(_currState.X, _currState.Y);
+			return new Point(MathHelper.Clamp(_currState.X, 0, GameManager.Window.ClientBounds.Width), MathHelper.Clamp(_currState.X, 0, GameManager.Window.ClientBounds.Height));
 		}
 
 		public static void SetMousePosition(int x, int y)
 		{
 			Mouse.SetPosition(x, y);
+		}
+
+		public static bool MouseIsMovedX()
+		{
+			return _currState.X - _prevState.X != 0;
+		}
+
+		public static bool MouseIsMovedY()
+		{
+			return _currState.Y - _prevState.Y != 0;
+		}
+
+		public static bool MouseIsMoved()
+		{
+			return MouseIsMovedX() || MouseIsMovedY();
 		}
 
 		public static int GetScrollValue()
@@ -33,6 +55,7 @@ namespace SuMamaLib.Inputs.Mouse
 		{
 			return _currState.ScrollWheelValue - _prevState.ScrollWheelValue == 0;
 		}
+
 
 		public static bool MouseLeftButtonIsPressed()
 		{
