@@ -1,7 +1,6 @@
 namespace SuMamaLib.Inputs.Keyboard
 {
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
    	public static class KeyboardManager
@@ -9,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 		private static KeyboardState _prevState = Keyboard.GetState();
 		private static KeyboardState _currState = Keyboard.GetState();
 
-        public static void Update(GameTime gameTime)
+        public static void Update()
         {
             _prevState = _currState;
             _currState = Keyboard.GetState();

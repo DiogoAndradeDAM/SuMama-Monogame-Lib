@@ -2,9 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using SuMamaLib.Inputs.Keyboard;
-
-using System;
+using SuMamaLib.Base.GameManager;
 
 namespace SuMamaLib;
 
@@ -12,13 +10,15 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-	private Color color = Color.White;
+	private GameManager gameManager;
 
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+
+		gameManager = new GameManager();
     }
 
     protected override void Initialize()
@@ -33,41 +33,27 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
+		
+		gameManager.Initialize();
     }
 
     protected override void Update(GameTime gameTime)
     {
-
-		KeyboardManager.Update(gameTime);
-
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-		if(KeyboardManager.KeyIsPressed(Keys.Left)){
-			color = Color.Black;
-		}
-
-		if(KeyboardManager.KeyWasPressed(Keys.Right)){
-			Console.WriteLine("Right was Pressed");
-			color = Color.Blue;
-		}
-
-		if(KeyboardManager.KeyWasReleased(Keys.Up)){
-			Console.WriteLine("Up was Released");
-			color = Color.Tomato;
-		}
-
-
-
+		gameManager.Update(gameTime);
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(color);
+        GraphicsDevice.Clear(Color.CornflowerBlue);
 
         // TODO: Add your drawing code here
+
+		gameManager.Draw(gameTime);
 
         base.Draw(gameTime);
     }
