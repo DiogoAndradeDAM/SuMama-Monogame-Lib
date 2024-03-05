@@ -2,12 +2,17 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using SuMamaLib.Inputs.Keyboard;
+
+using System;
+
 namespace SuMamaLib;
 
 public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+	private Color color = Color.White;
 
     public Game1()
     {
@@ -32,17 +37,35 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
+
+		KeyboardManager.Update(gameTime);
+
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
+		if(KeyboardManager.KeyIsPressed(Keys.Left)){
+			color = Color.Black;
+		}
+
+		if(KeyboardManager.KeyWasPressed(Keys.Right)){
+			Console.WriteLine("Right was Pressed");
+			color = Color.Blue;
+		}
+
+		if(KeyboardManager.KeyWasReleased(Keys.Up)){
+			Console.WriteLine("Up was Released");
+			color = Color.Tomato;
+		}
+
+
+
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(color);
 
         // TODO: Add your drawing code here
 
