@@ -10,10 +10,10 @@ namespace SuMamaLib.Inputs.Mouse
 		private static MouseState _prevState = Mouse.GetState();
 		private static MouseState _currState = Mouse.GetState();
 
-		public static void Update(GameWindow window)
+		public static void Update()
 		{
 			_prevState = _currState;
-			_currState = Mouse.GetState(window);
+			_currState = Mouse.GetState(GameManager.Window);
 		}
 
 		public static Point GetMousePositionWindow()
@@ -23,7 +23,7 @@ namespace SuMamaLib.Inputs.Mouse
 
 		public static Point GetMousePosition()
 		{
-			return new Point(MathHelper.Clamp(_currState.X, 0, GameManager.Window.ClientBounds.Width), MathHelper.Clamp(_currState.X, 0, GameManager.Window.ClientBounds.Height));
+			return new Point(MathHelper.Clamp(_currState.X, 0, GameManager.Window.ClientBounds.Width), MathHelper.Clamp(_currState.Y, 0, GameManager.Window.ClientBounds.Height));
 		}
 
 		public static void SetMousePosition(int x, int y)
