@@ -1,4 +1,4 @@
-using SuMamaLib.Base.GameManager;
+using SuMamaLib.Base;
 
 namespace SuMamaLib.Inputs.Mouse
 {

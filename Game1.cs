@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using SuMamaLib.Base.GameManager;
+using SuMamaLib.Base;
 
 namespace SuMamaLib;
 

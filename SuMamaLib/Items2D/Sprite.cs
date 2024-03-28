@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SuMamaLib.Items2D.Sprite
+namespace SuMamaLib.Items2D.Sprites
 {
 	public class Sprite
 	{

@@ -6,27 +6,26 @@ using Microsoft.Xna.Framework.Content;
 
 using SuMamaLib.Inputs.Mouse;
 using SuMamaLib.Inputs.Keyboard;
-using SuMamaLib.Items2D.Sprite;
+using SuMamaLib.Items2D.Sprites;
+using SuMamaLib.Items2D.Component;
 
-namespace SuMamaLib.Base.GameManager
+namespace SuMamaLib.Base
 {
 	public class GameManager
 	{
-		public static SpriteBatch SpriteBatch;
-		public static ContentManager GlobalContent;
 		public static GameWindow Window;
-		public Sprite sprite;
+		public Component2D component;
 
 		public GameManager(GameWindow window, ContentManager content, GraphicsDevice graphicsDevice)
 		{
 			Window = window;
-			GlobalContent = content;
-			SpriteBatch = new SpriteBatch(graphicsDevice);
+			Globals.Initialize(graphicsDevice, content);
 		}
 
 		public void Initialize()
 		{
-			sprite = new Sprite(GlobalContent.Load<Texture2D>("Sprites/aiyra_spritesheet"));
+
+			component = new Component2D(new Sprite(Globals.GlobalContent.Load<Texture2D>("Sprites/aiyra_spritesheet")));
 		}
 
 		public void Update(GameTime gameTime)
@@ -34,16 +33,17 @@ namespace SuMamaLib.Base.GameManager
 			MouseManager.Update();
 			KeyboardManager.Update();
 
-			Console.WriteLine($"Mouse Position: {MouseManager.GetMousePosition()}");
+
+			component.Update(gameTime);
 		}
 
 		public void Draw(GameTime gameTime)
 		{
-			SpriteBatch.Begin();
+			Globals.SpriteBatch.Begin();
 
-			SpriteBatch.Draw(sprite.Texture, new Vector2(100, 100), new Rectangle(sprite.Position.X, sprite.Position.Y, sprite.Width, sprite.Height), sprite.Color, sprite.Rotate, sprite.Origin, sprite.Scale, sprite.SpriteEffects, 1f);
+			component.Draw(gameTime);
 
-			SpriteBatch.End();
+			Globals.SpriteBatch.End();
 		}
 	}
 }
